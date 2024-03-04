@@ -1,8 +1,6 @@
 body {
   font-family: Georgia, serif;
   background-color: #f8f8f8;
-  margin: 0;
-  padding: 0;
 }
 
 #logo-image {
@@ -11,3 +9,13 @@ body {
 }
 
 /* Add your own custom styles here */
+
+form {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px dodgerBlue;
+}
+
+form > * {
+  margin: 0.5rem;
+}
