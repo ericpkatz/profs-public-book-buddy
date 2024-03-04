@@ -26,6 +26,16 @@ function App() {
     }
   }, []);
 
+  useEffect(()=> {
+    console.log(auth);
+    if(auth.id){
+      console.log('load the reservations');
+    }
+    else {
+      console.log('clear the reservations');
+    }
+  }, [auth]);
+
 
 
 
