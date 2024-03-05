@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 const Books = ({ books })=> {
   return (
     <ul>
@@ -5,7 +6,9 @@ const Books = ({ books })=> {
         books.map((book)=> {
           return (
             <li key={ book.id }>
+              <Link to={`/books/${book.id}`}>
               { book.title }
+              </Link>
             </li>
           );
         })

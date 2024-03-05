@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom';
 import bookLogo from './assets/books.png'
 import Books from './components/Books';
 import Login from './components/Login';
+import SingleBook from './Components/SingleBook';
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -92,6 +94,9 @@ function App() {
             <Login login={ login }/> 
           )
       }
+      <Routes>
+        <Route path='/books/:id' element={ <SingleBook books={ books }/> } />
+      </Routes>
       <Books books={ books } />
 
     </>
