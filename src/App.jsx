@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import bookLogo from './assets/books.png'
 import Books from './components/Books';
 import Login from './components/Login';
 import SingleBook from './Components/SingleBook';
+import Account from './Components/Account';
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -86,6 +87,14 @@ function App() {
   return (
     <>
       <h1><img id='logo-image' src={bookLogo}/>Library App</h1>
+      <nav>
+        <Link to='/books'>Books</Link>
+        {
+          auth.id ? (
+            <Link to='/account'>Account</Link>
+          ) : (null)
+        }
+      </nav>
       {
         auth.id ? (
           <button onClick={ logout }>Welcome {auth.email } (Click to logout)</button>
@@ -96,8 +105,23 @@ function App() {
       }
       <Routes>
         <Route path='/books/:id' element={ <SingleBook books={ books }/> } />
+        <Route
+          path='/books'
+          element={
+            <Books books={ books } />
+          }
+        />
+        {
+          auth.id ? (
+            <Route
+              path='/account'
+              element={
+                <Account auth={ auth } />
+              }
+            />
+          ): (null)
+        }
       </Routes>
-      <Books books={ books } />
 
     </>
   )

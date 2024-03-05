@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 const SingleBook = ({ books })=> {
   const params = useParams();
-  const id = params.id*1;
+  const id = +params.id;
   const book = books.find(book => book.id === id);
   if(!book){
     return null;
