@@ -111,6 +111,12 @@ function App() {
             <Books books={ books } />
           }
         />
+        <Route
+          path='/books/search/:term'
+          element={
+            <Books books={ books } />
+          }
+        />
         {
           auth.id ? (
             <Route
