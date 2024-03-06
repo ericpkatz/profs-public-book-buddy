@@ -93,7 +93,7 @@ function App() {
       }
     }
     else {
-      console.log(json);
+      throw json;
     }
   }
 

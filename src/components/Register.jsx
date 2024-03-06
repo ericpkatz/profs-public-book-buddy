@@ -3,6 +3,7 @@ import { useState } from 'react';
 const Register = ({ register })=> {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const submit = async(ev)=> {
@@ -11,13 +12,28 @@ const Register = ({ register })=> {
       email,
       password
     };
-    await register(credentials);
-    navigate('/account');
+    try {
+      await register(credentials);
+      navigate('/account');
+    }
+    catch(ex){
+      setError(ex.message);
+    }
 
   }
 
   return (
     <form onSubmit={ submit }>
+      {
+        error ? (
+          <div className='error'>{ error }</div>
+        ): (null)
+      }
+      {
+        error !== '' &&  (
+          <div className='error'>{ error }</div>
+        )
+      }
       <input
         placeholder='email'
         value={ email }

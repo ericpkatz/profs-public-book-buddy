@@ -30,3 +30,9 @@ nav {
 nav a {
   color: cornSilk;
 }
+
+.error {
+  background-color: tomato;
+  color: cornSilk;
+  padding: 0.5rem;
+}
