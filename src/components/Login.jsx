@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 const Login = ({ login })=> {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const submit = async(ev)=> {
     ev.preventDefault();
@@ -10,6 +12,8 @@ const Login = ({ login })=> {
       password
     };
     await login(credentials);
+    navigate('/account');
+
   }
 
   return (

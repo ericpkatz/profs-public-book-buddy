@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import bookLogo from './assets/books.png'
 import Books from './components/Books';
 import Login from './components/Login';
+import Register from './components/Register';
 import SingleBook from './Components/SingleBook';
 import Account from './Components/Account';
 
@@ -69,6 +70,33 @@ function App() {
     }
   }
 
+  const register = async(credentials)=> {
+    let response = await fetch('https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/register', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    let json = await response.json();
+    if(response.ok){
+      const token = json.token;
+      window.localStorage.setItem('token', token);
+      response = await fetch('https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/me', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      json = await response.json();
+      if(response.ok){
+        setAuth(json);
+      }
+    }
+    else {
+      console.log(json);
+    }
+  }
+
   const logout = ()=> {
     window.localStorage.removeItem('token');
     setAuth({});
@@ -100,7 +128,10 @@ function App() {
           <button onClick={ logout }>Welcome {auth.email } (Click to logout)</button>
           ):
           (
-            <Login login={ login }/> 
+            <>
+              <Login login={ login }/> 
+              <Register register={ register }/> 
+            </>
           )
       }
       <Routes>
