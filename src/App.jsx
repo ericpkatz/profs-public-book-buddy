@@ -30,13 +30,34 @@ function App() {
     }
   }, []);
 
+  const fetchReservations = async()=> {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch('https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const json = await response.json();
+    setReservations(json.reservation);
+  };
+
+  const reserve = async(book)=> {
+    const token = window.localStorage.getItem('token');
+    const response = await fetch(`https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/books/${book.id}`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    fetchReservations();
+  };
+
   useEffect(()=> {
-    console.log(auth);
     if(auth.id){
-      console.log('load the reservations');
+      fetchReservations();
     }
     else {
-      console.log('clear the reservations');
+      setReservations([]);
     }
   }, [auth]);
 
@@ -139,7 +160,7 @@ function App() {
         <Route
           path='/books'
           element={
-            <Books books={ books } />
+            <Books books={ books } auth={ auth } reservations={reservations} reserve={ reserve }/>
           }
         />
         <Route
